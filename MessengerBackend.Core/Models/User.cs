@@ -1,4 +1,6 @@
-﻿namespace MessengerBackend.Core.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MessengerBackend.Core.Models;
 
 public class User
 {

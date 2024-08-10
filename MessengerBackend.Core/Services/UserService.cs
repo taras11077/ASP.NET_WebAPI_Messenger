@@ -18,10 +18,6 @@ public class UserService : IUserService
 // реєстрація користувача   
     public async Task<User> Register(string nickname, string password)
     {
-        // валідація вводу
-        if (string.IsNullOrEmpty(nickname) || string.IsNullOrEmpty(password))
-            throw new ArgumentException("Nickname and password must be provided.");
-    
         // перевірка існування користувача з таким самим ім'ям
         if (_repository.GetAll<User>().Any(u => u.Nickname == nickname))
             throw new InvalidOperationException("User with the same nickname already exists.");
@@ -56,9 +52,9 @@ public class UserService : IUserService
 // логування користувача      
     public async Task<User> Login(string nickname, string password)
     {
-        // валідація вводу
-        if (string.IsNullOrEmpty(nickname) || string.IsNullOrEmpty(password))
-            throw new ArgumentException("Nickname and password must be provided.");
+        // // валідація вводу
+        // if (string.IsNullOrEmpty(nickname) || string.IsNullOrEmpty(password))
+        //     throw new ArgumentException("Nickname and password must be provided.");
         
         // перевірка користувача на наявність в базі
         var user = _repository.GetAll<User>().FirstOrDefault(u => u.Nickname == nickname);

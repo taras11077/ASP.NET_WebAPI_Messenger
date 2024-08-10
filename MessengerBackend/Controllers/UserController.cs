@@ -4,11 +4,7 @@ using MessengerBackend.Core.Models;
 using MessengerBackend.DTOs;
 using MessengerBackend.Storage;
 using MessengerBackend.Requests;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LoginRequest = Microsoft.AspNetCore.Identity.Data.LoginRequest;
 
 namespace MessengerBackend.Controllers;
 
@@ -29,8 +25,12 @@ public class UserController : Controller
     
     // реєстрація користувача
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] CreateUserRequest request)
+    public async Task<IActionResult> Register(CreateUserRequest request)
     {
+        // перевірка валідності моделі
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
         try
         {
             var userDb = await _userService.Register(request.Nickname, request.Password);
@@ -54,8 +54,12 @@ public class UserController : Controller
     
     // логування користувача
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] CreateUserRequest request)
+    public async Task<IActionResult> Login(CreateUserRequest request)
     {
+        // перевірка валідності моделі
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+        
         try
         {
             var userDb = await _userService.Login(request.Nickname, request.Password);
