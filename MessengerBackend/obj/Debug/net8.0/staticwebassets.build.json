@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "I8+fOlecHLzWOApQtJOWyPk1oZXdo964SfO8duKiiT0=",
+  "Source": "MessengerBackend",
+  "BasePath": "_content/MessengerBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
