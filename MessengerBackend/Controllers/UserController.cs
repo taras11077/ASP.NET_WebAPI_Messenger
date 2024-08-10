@@ -12,13 +12,11 @@ namespace MessengerBackend.Controllers;
 [Route("api/users")]
 public class UserController : Controller
 {
-    private readonly MessengerContext _context;
     private readonly IMapper _mapper;
     private readonly IUserService _userService;
 
-    public UserController(MessengerContext context, IMapper mapper, IUserService userService)
+    public UserController(IMapper mapper, IUserService userService)
     {
-        _context = context;
         _mapper = mapper;
         _userService = userService;
     }
@@ -85,9 +83,9 @@ public class UserController : Controller
 
     // отримання всіх користувачів
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
+    public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
-        var users = await _userService.GetUsers(1,10);
+        var users = await _userService.GetUsers(page, pageSize);
         return Ok(_mapper.Map<IEnumerable<UserDTO>>(users));
     }
     
