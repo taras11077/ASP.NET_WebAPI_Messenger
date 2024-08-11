@@ -33,16 +33,6 @@ public class ChatController : ControllerBase
         }).ToList();
     }
     
-    [HttpPost]
-    public async Task<ActionResult<UserDTO>> AddUser(UserDTO user)
-    {
-        var userDb = _mapper.Map<User>(user);
-        _context.Users.Add(userDb);
-        userDb.CreatedAt = userDb.LastSeenOnline = DateTime.UtcNow;
-        await _context.SaveChangesAsync();
-        return Created("user", user);
-    }
-    
     [HttpPost("createPrivateChat")]
     public async Task<ActionResult<PrivateChat>> AddPrivateChat(PrivateChatDTO chat)
     {

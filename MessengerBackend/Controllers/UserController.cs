@@ -4,6 +4,7 @@ using MessengerBackend.Core.Models;
 using MessengerBackend.DTOs;
 using MessengerBackend.Storage;
 using MessengerBackend.Requests;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessengerBackend.Controllers;
@@ -12,20 +13,20 @@ namespace MessengerBackend.Controllers;
 [Route("api/users")]
 public class UserController : Controller
 {
-    private readonly IMapper _mapper;
     private readonly IUserService _userService;
+    private readonly IMapper _mapper;
 
-    public UserController(IMapper mapper, IUserService userService)
+    public UserController(IUserService userService, IMapper mapper)
     {
-        _mapper = mapper;
         _userService = userService;
+        _mapper = mapper;
     }
     
     // реєстрація користувача
     [HttpPost("register")]
     public async Task<IActionResult> Register(CreateUserRequest request)
     {
-        // перевірка валідності моделі
+        // перевірка валідності моделі (CreateUserRequest)
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         
@@ -41,11 +42,11 @@ public class UserController : Controller
         }
         catch (InvalidOperationException ex)
         {
-            return Conflict(new { message = ex.Message });// 409 Conflict, якщо вже існує юзер з таким нікнеймом
+            return Conflict(new { message = ex.Message });// 409 Conflict - якщо вже існує юзер з таким нікнеймом
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { message = "An unexpected error occurred." }); // 500 Internal Server Error для всіх інших виключень
+            return StatusCode(500, new { message = "An unexpected error occurred." }); // 500 Internal Server Error - для всіх інших виключень
         }
     }
 
@@ -54,7 +55,7 @@ public class UserController : Controller
     [HttpPost("login")]
     public async Task<IActionResult> Login(CreateUserRequest request)
     {
-        // перевірка валідності моделі
+        // перевірка валідності моделі (CreateUserRequest)
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         
@@ -68,11 +69,11 @@ public class UserController : Controller
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(new { message = ex.Message });  // 400 Bad Request, якщо не переданий никнейм або пароль
+            return BadRequest(new { message = ex.Message });  // 400 Bad Request - якщо не переданий никнейм або пароль
         }
         catch (UnauthorizedAccessException ex)
         {
-            return Unauthorized(new { message = ex.Message }); // 401 Unauthorized, якщо невалідні никнейм або пароль
+            return Unauthorized(new { message = ex.Message }); // 401 Unauthorized - якщо неправільні никнейм або пароль
         }
         catch (Exception ex)
         {

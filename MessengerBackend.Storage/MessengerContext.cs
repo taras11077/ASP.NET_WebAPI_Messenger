@@ -17,7 +17,9 @@ public class MessengerContext : DbContext
    // }
     
     public DbSet<User> Users { get; set; }
+    
     public DbSet<Message> Messages { get; set; }
+    
     public DbSet<Attachment> Attachments { get; set; }
     public DbSet<PrivateChat> PrivateChats { get; set; }
     public DbSet<GroupChat> GroupChats { get; set; }

@@ -13,10 +13,10 @@ builder.Services.AddDbContext<MessengerContext>(options => options.UseSqlServer(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddTransient<IUserService, UserService>();
-
-builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MessengerBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+063491e47039a1022638409b712c95c36da9bd58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6fda12753095bc3f4e8e1942cca2122c5eda887")]
 [assembly: System.Reflection.AssemblyProductAttribute("MessengerBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MessengerBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
