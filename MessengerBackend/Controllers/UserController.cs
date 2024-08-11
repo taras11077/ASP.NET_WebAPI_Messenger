@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using AutoMapper;
 using MessengerBackend.Core.Interfaces;
 using MessengerBackend.Core.Models;
@@ -114,15 +116,37 @@ public class UserController : Controller
         }
         return Ok(_mapper.Map<IEnumerable<UserDTO>>(users));
     }
+// видалення користувача    
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteUser([FromRoute] int id)
+    {
+        await _userService.DeleteUser(id);
+        return NoContent();
+    }
     
+// оновлення користувача
+    [HttpPut ("{id}")]
+    public async Task<ActionResult<UserDTO>> UpdateUser(int id,CreateUserRequest request)
+    {
+        var userDb = await _userService.GetUserById(id);
+        
+        userDb.Nickname = request.Nickname;
+        userDb.Password = HashPassword(request.Password);
+        userDb.LastSeenOnline = DateTime.UtcNow;
+        
+        await _userService.UpdateUser(userDb);
+        return Ok(_mapper.Map<UserDTO>(userDb));
+    }
     
-    
-    
-    
-
-    
-    
-    
+    // метод хешування пароля
+    private string HashPassword(string password)
+    {
+        using (var sha256 = SHA256.Create())
+        {
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
+        }
+    }
     
 }
 

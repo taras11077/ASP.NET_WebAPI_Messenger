@@ -2,7 +2,6 @@ using AutoMapper;
 using MessengerBackend.Core.Models;
 using MessengerBackend.DTOs;
 using MessengerBackend.Storage;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

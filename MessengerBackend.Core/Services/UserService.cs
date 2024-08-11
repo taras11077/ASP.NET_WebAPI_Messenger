@@ -85,7 +85,19 @@ public class UserService : IUserService
         return await _repository.GetById<User>(id);
     }
     
-// отримання користувачів з пагінацією 
+// оновлення користувача
+    public async Task<User> UpdateUser(User user)
+    {
+        return await _repository.Update(user);
+    }
+    
+// видалення користувача
+    public async Task DeleteUser(int id)
+    {
+        await _repository.Delete<User>(id);
+    }
+
+    // отримання користувачів з пагінацією 
     public async Task<IEnumerable<User>> GetUsers(int page, int size)
     {
         return await _repository.GetAll<User>()
