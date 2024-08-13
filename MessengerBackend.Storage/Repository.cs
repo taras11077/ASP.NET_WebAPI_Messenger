@@ -49,7 +49,7 @@ public class Repository : IRepository
 
     public IQueryable<T> GetAll<T>() where T : class
     {
-        return _context.Set<T>().AsQueryable();
+        return _context.Set<T>();
     }
 
     public async Task<IEnumerable<T>> GetQuery<T>(Expression<Func<T, bool>> func) where T : class
