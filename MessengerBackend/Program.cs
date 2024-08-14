@@ -3,6 +3,7 @@ using MessengerBackend.Core.Services;
 using MessengerBackend.Storage;
 using Microsoft.EntityFrameworkCore;
 using MessengerBackend.Filters;
+using MessengerBackend.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserStatisticService, UserStatisticService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -39,6 +41,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<UserStatisticMiddleware>();
+
+//app.UseMiddleware<InfoMiddleware>();
 
 app.UseHttpsRedirection();
 

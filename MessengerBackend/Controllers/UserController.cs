@@ -86,9 +86,9 @@ public class UserController : Controller
 
     // отримання всіх користувачів
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    public  ActionResult<IEnumerable<UserDTO>> GetUsers([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
-        var users = await _userService.GetUsers(page, pageSize);
+        var users =  _userService.GetUsers(page, size);
         return Ok(_mapper.Map<IEnumerable<UserDTO>>(users));
     }
     
@@ -106,10 +106,10 @@ public class UserController : Controller
     }
     
     // отримання користувачів за нікнеймом
-    [HttpGet("search")]
-    public async Task<ActionResult<IEnumerable<User>>> SearchUsers([FromQuery] string nickname)
+    [HttpGet("search/{nickname}")]
+    public ActionResult<IEnumerable<User>> SearchUsers(string nickname)
     {
-        var users = await _userService.SearchUsers(nickname);
+        var users = _userService.SearchUsers(nickname);
         if (!users.Any())
         {
             return NotFound();

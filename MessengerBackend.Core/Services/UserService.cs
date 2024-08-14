@@ -65,11 +65,11 @@ public class UserService : IUserService
         // перевірка користувача на наявність в базі
         var user = _repository.GetAll<User>().FirstOrDefault(u => u.Nickname == nickname);
         if (user == null)
-            throw new UnauthorizedAccessException("Invalid nickname or password.");
+            throw new UnauthorizedAccessException("Invalid nickname.");
         
         // перевірка пароля
         if (!VerifyPassword(password, user.Password))
-            throw new UnauthorizedAccessException("Invalid nickname or password.");
+            throw new UnauthorizedAccessException("Invalid password.");
         
         // оновлення часу останнього відвідування
         user.LastSeenOnline = DateTime.UtcNow;
@@ -104,18 +104,18 @@ public class UserService : IUserService
     }
 
     // отримання користувачів з пагінацією 
-    public async Task<IEnumerable<User>> GetUsers(int page, int size)
+    public IEnumerable<User> GetUsers(int page, int size)
     {
-        return await _repository.GetAll<User>()
+        return _repository.GetAll<User>()
             .Skip((page - 1) * size)
             .Take(size)
-            .ToListAsync();
+            .ToList();
     }
 // отримання користувачів за ім'ям
-    public async Task<IEnumerable<User>> SearchUsers(string nickname)
+    public IEnumerable<User> SearchUsers(string nickname)
     {
-        return await _repository.GetAll<User>()
+        return _repository.GetAll<User>()
             .Where(u => u.Nickname.ToLower().Contains(nickname.ToLower()))
-            .ToListAsync();
+            .ToList();
     }
 }

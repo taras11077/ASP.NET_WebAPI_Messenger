@@ -24,7 +24,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <Folder Include="Areas\ChatController\Controllers\" />
+      <Folder Include="Areas\ChatController\Data\" />
+      <Folder Include="Areas\ChatController\Models\" />
+      <Folder Include="Areas\ChatController\Views\" />
+      <Folder Include="Areas\UserStatisticController\Controllers\" />
+      <Folder Include="Areas\UserStatisticController\Data\" />
+      <Folder Include="Areas\UserStatisticController\Models\" />
+      <Folder Include="Areas\UserStatisticController\Views\" />
     </ItemGroup>
 
     <ItemGroup>

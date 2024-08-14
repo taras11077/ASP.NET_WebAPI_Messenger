@@ -157,13 +157,13 @@ namespace MessengerBackend.Storage.Migrations
                     b.HasOne("MessengerBackend.Core.Models.Chat", null)
                         .WithMany()
                         .HasForeignKey("ChatsId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MessengerBackend.Core.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

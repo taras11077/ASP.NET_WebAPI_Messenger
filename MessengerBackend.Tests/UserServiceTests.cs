@@ -1,9 +1,9 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿
 using MessengerBackend.Core.Interfaces;
 using MessengerBackend.Core.Models;
 using MessengerBackend.Core.Services;
 using MessengerBackend.Storage;
+using MessengerBackend.Tests.Fakes;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessengerBackend.Tests;
@@ -11,29 +11,40 @@ namespace MessengerBackend.Tests;
 // AAA Assign, Act, Assert
 public class UserServiceTests
 {
-    private const string CorrectNickname = "nickname";
-    private const string CorrectPassword = "0000";
+    private readonly IUserService _userService;
+    private readonly FakeUserRepository _repository;
+    
+    private const string CorrectNickname = "user3";
+    private const string CorrectPassword = "pass3";
+    
+    public UserServiceTests()
+    {
+        _repository = new FakeUserRepository();
+        _userService = CreateUserService();
+    }
     
     
+// тест логування користувача   
     [Fact]
     public async Task UserService_Login_CorrectInput()
     {
         // Assign
-        var userService = CreateUserService();
         var expectedUser = new User()
         {
-            Nickname = "user3",
-            Password = (userService as UserService).HashPassword("pass3"),
+            Nickname = CorrectNickname,
+            Password = (_userService as UserService).HashPassword(CorrectPassword),
         };
         
         // Act
-        var user = await userService.Login("user3", "pass3");
+        await _userService.Register(CorrectNickname, CorrectPassword);  // for FakeRepository
+        var user = await _userService.Login(CorrectNickname, CorrectPassword);
         
         // Assert
         Assert.Equal(expectedUser, user, new UserComparer());
 
     }
     
+ // тест методу логування на порожні поля   
     [Theory]
     [InlineData("")]
     [InlineData("     ")]
@@ -41,16 +52,16 @@ public class UserServiceTests
     public async Task UserService_Login_ThrowsExceptionWhenEmptyField(string data)
     {
         // Assign
-        var userService = CreateUserService();
+
      
         // Act
         var exceptionNicknameHandler = async () =>
         {
-            await userService.Login(data,CorrectPassword);
+            await _userService.Login(data,CorrectPassword);
         };
         var exceptionPasswordHandler = async () =>
         {
-            await userService.Login(CorrectNickname, data);
+            await _userService.Login(CorrectNickname, data);
         };
      
         // Assert
@@ -58,7 +69,7 @@ public class UserServiceTests
         await Assert.ThrowsAsync<ArgumentNullException>(exceptionPasswordHandler);
     }
     
-    
+// тест валідації нікнейма при реєстрації    
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
@@ -67,21 +78,18 @@ public class UserServiceTests
     public async Task UserService_Register_ThrowsExceptionWhenIncorrectNickname(string nickname)
     {
         // Assign
-        var userService = CreateUserService();
         
         // Act
         var exceptionHandler = async () =>
         {
-            await userService.Register(nickname, CorrectPassword);
+            await _userService.Register(nickname, CorrectPassword);
         };
 
         // Assert
         await Assert.ThrowsAsync<ArgumentException>(exceptionHandler);
     }
     
-    
-    
-    
+// тест валідації пароля при реєстрації     
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
@@ -90,31 +98,101 @@ public class UserServiceTests
     public async Task UserService_Register_ThrowsExceptionWhenIncorrectPassword(string password)
     {
         // Assign
-        var userService = CreateUserService();
         
         // Act
         var exceptionHandler = async () =>
         {
-            await userService.Register(CorrectNickname, password);
+            await _userService.Register(CorrectNickname, password);
         };
 
         // Assert
         await Assert.ThrowsAsync<ArgumentException>(exceptionHandler);
     }
     
+    // ======================
+
+    [Fact]
+    public void SearchUsers_ReturnsUsersWhenNicknameIsCorrect()
+    {
+        // Arrange
+        var nickname = "TestUser1";
+
+        // Act
+        var users = _userService.SearchUsers(nickname).ToList();
+
+        // Assert
+        Assert.Single(users);
+        Assert.Equal("TestUser1", users.First().Nickname);
+    }
+
+    [Fact]
+    public void SearchUsers_ReturnsAllUsersWhenNicknameIsEmpty()
+    {
+        // Arrange
+        var nickname = string.Empty;
+
+        // Act
+        var users = _userService.SearchUsers(nickname);
+
+        // Assert
+        Assert.Equal(3, users.Count());
+    }
+
+    [Fact]
+    public void SearchUsers_ReturnsEmptyWhenNicknameNotExists()
+    {
+        // Arrange
+        var nickname = "NonExistentUser";
+
+        // Act
+        var users = _userService.SearchUsers(nickname);
+
+        // Assert
+        Assert.Empty(users);
+    }
+
+    [Fact]
+    public void SearchUsers_ReturnsUsersWhenNicknameIsPartOfOtherNickname()
+    {
+        // Arrange
+        var nickname = "User3";
+
+        // Act
+        var users = _userService.SearchUsers(nickname).ToList();
+
+        // Assert
+        Assert.Single(users);
+        Assert.Equal("TestUser3", users.First().Nickname);
+    }
+
+    [Fact]
+    public void SearchUsers_IgnoresCaseWhenSearchingByNickname()
+    {
+        // Arrange
+        var nickname = "user";
+
+        // Act
+        var users = _userService.SearchUsers(nickname);
+
+        // Assert
+        Assert.Equal(3, users.Count());
+    }
     
     
+    
+    // ========================
     
     private IUserService CreateUserService()
     {
-        var options = new DbContextOptionsBuilder<MessengerContext>()
-            .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = MessengerDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; Trust Server Certificate=False; Application Intent = ReadWrite; Multi Subnet Failover=False")
-            .Options;
-        
-        var context = new MessengerContext(options);
-        var repository = new Repository(context);
-
-        return new UserService(repository);
+        // var options = new DbContextOptionsBuilder<MessengerContext>()
+        //     .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = MessengerDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; Trust Server Certificate=False; Application Intent = ReadWrite; Multi Subnet Failover=False")
+        //     .Options;
+        //
+        // var context = new MessengerContext(options);
+        // var repository = new Repository(context);
+        //
+        // return new UserService(repository);
+        return new UserService(new FakeUserRepository());   // for FakeRepository
     }
 }
 

@@ -10,7 +10,6 @@ public interface IUserService
     Task<User> UpdateUser(User user);
     Task DeleteUser(int id);
     
-    
-    Task<IEnumerable<User>> GetUsers(int page, int size);
-    Task<IEnumerable<User>> SearchUsers(string nickname);
+    IEnumerable<User> GetUsers(int page, int size);
+    IEnumerable<User> SearchUsers(string nickname);
 }
