@@ -19,8 +19,9 @@ public class UserService : IUserService
     public async Task<User> Register(string nickname, string password)
     {
         // валідація вводу
-        if (string.IsNullOrEmpty(nickname) || string.IsNullOrEmpty(password))
-            throw new ArgumentException("Nickname and password must be provided.");
+        if (nickname == null || string.IsNullOrEmpty(nickname.Trim()) || nickname.Length < 4 || 
+            password == null || string.IsNullOrEmpty(password.Trim()) || password.Length < 4)
+            throw new ArgumentException();
         
         // перевірка існування користувача з таким самим ім'ям
         if (_repository.GetAll<User>().Any(u => u.Nickname == nickname))
@@ -43,7 +44,7 @@ public class UserService : IUserService
     }
     
     // метод хешування пароля
-    private string HashPassword(string password)
+    public string HashPassword(string password)
     {
         using (var sha256 = SHA256.Create())
         {
@@ -57,8 +58,9 @@ public class UserService : IUserService
     public async Task<User> Login(string nickname, string password)
     {
         // валідація вводу
-        if (string.IsNullOrEmpty(nickname.Trim()) || string.IsNullOrEmpty(password.Trim()))
-            throw new ArgumentException("Nickname and password must be provided.");
+        if (nickname == null || string.IsNullOrEmpty(nickname.Trim()) || 
+            password == null || string.IsNullOrEmpty(password.Trim()))
+            throw new ArgumentNullException();
         
         // перевірка користувача на наявність в базі
         var user = _repository.GetAll<User>().FirstOrDefault(u => u.Nickname == nickname);

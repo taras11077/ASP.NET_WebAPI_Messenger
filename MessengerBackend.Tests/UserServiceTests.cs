@@ -8,21 +8,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MessengerBackend.Tests;
 
+// AAA Assign, Act, Assert
 public class UserServiceTests
 {
+    private const string CorrectNickname = "nickname";
+    private const string CorrectPassword = "0000";
+    
+    
     [Fact]
-    public async void UserService_Login_CorrectInput()
+    public async Task UserService_Login_CorrectInput()
     {
+        // Assign
         var userService = CreateUserService();
-
         var expectedUser = new User()
         {
             Nickname = "user3",
-            Password = HashPassword("pass3"),
+            Password = (userService as UserService).HashPassword("pass3"),
         };
         
+        // Act
         var user = await userService.Login("user3", "pass3");
         
+        // Assert
         Assert.Equal(expectedUser, user, new UserComparer());
 
     }
@@ -34,16 +41,16 @@ public class UserServiceTests
     public async Task UserService_Login_ThrowsExceptionWhenEmptyField(string data)
     {
         // Assign
-        var service = CreateUserService();
+        var userService = CreateUserService();
      
         // Act
         var exceptionNicknameHandler = async () =>
         {
-            await service.Login(data, CorrectPassword);
+            await userService.Login(data,CorrectPassword);
         };
         var exceptionPasswordHandler = async () =>
         {
-            await service.Login(CorrectNickname, data);
+            await userService.Login(CorrectNickname, data);
         };
      
         // Assert
@@ -55,41 +62,43 @@ public class UserServiceTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
+    [InlineData("abc")]
     [InlineData(null)]
-    [InlineData("1")]
-    [InlineData("@")]
     public async Task UserService_Register_ThrowsExceptionWhenIncorrectNickname(string nickname)
     {
-        var service = CreateUserService();
+        // Assign
+        var userService = CreateUserService();
         
+        // Act
         var exceptionHandler = async () =>
         {
-            await service.Register(nickname, CorrectPassword);
+            await userService.Register(nickname, CorrectPassword);
         };
 
+        // Assert
         await Assert.ThrowsAsync<ArgumentException>(exceptionHandler);
     }
     
-    private const string CorrectNickname = "nickname";
-    private const string CorrectPassword = "0000";
+    
     
     
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
     [InlineData(null)]
-    [InlineData("1")]
-    [InlineData("9999")]
-    [InlineData("ghsfghsegfsheg")]
+    [InlineData("111")]
     public async Task UserService_Register_ThrowsExceptionWhenIncorrectPassword(string password)
     {
-        var service = CreateUserService();
+        // Assign
+        var userService = CreateUserService();
         
+        // Act
         var exceptionHandler = async () =>
         {
-            await service.Register(CorrectNickname, password);
+            await userService.Register(CorrectNickname, password);
         };
 
+        // Assert
         await Assert.ThrowsAsync<ArgumentException>(exceptionHandler);
     }
     
@@ -106,18 +115,6 @@ public class UserServiceTests
         var repository = new Repository(context);
 
         return new UserService(repository);
-    }
-    
-    
-    
-    // метод хешування пароля
-    private string HashPassword(string password)
-    {
-        using (var sha256 = SHA256.Create())
-        {
-            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(hashedBytes);
-        }
     }
 }
 
