@@ -10,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Local");
 builder.Services.AddDbContext<MessengerContext>(options => options.UseSqlServer(connectionString));
 
-//builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -28,6 +27,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//builder.Services.AddControllers();
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(new SessionCheckAttribute());
@@ -35,7 +35,6 @@ builder.Services.AddControllers(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
