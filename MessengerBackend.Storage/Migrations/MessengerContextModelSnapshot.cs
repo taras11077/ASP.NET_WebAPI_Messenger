@@ -130,6 +130,26 @@ namespace MessengerBackend.Storage.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("MessengerBackend.Core.Models.UserRequestStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RequestCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserRequestStatistics");
+                });
+
             modelBuilder.Entity("MessengerBackend.Core.Models.GroupChat", b =>
                 {
                     b.HasBaseType("MessengerBackend.Core.Models.Chat");

@@ -8,8 +8,7 @@ public class MessengerContext : DbContext
     public MessengerContext(DbContextOptions<MessengerContext> options) : base(options)
     {
         
-    } 
-    
+    }
    //  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
    // {
    //     optionsBuilder.UseSqlServer(
@@ -23,4 +22,6 @@ public class MessengerContext : DbContext
     public DbSet<Attachment> Attachments { get; set; }
     public DbSet<PrivateChat> PrivateChats { get; set; }
     public DbSet<GroupChat> GroupChats { get; set; }
+    
+    public DbSet<UserRequestStatistic> UserRequestStatistics { get; set; }
 }
