@@ -8,6 +8,7 @@ public interface IUserService
     Task<User> Register(string nickname, string password);
     Task<User> GetUserById(int id);
     Task<User> UpdateUser(User user);
+    
     Task DeleteUser(int id);
     
     IEnumerable<User> GetUsers(int page, int size);

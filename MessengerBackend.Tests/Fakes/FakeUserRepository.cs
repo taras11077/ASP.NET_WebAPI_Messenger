@@ -11,13 +11,7 @@ public class FakeUserRepository : IRepository
     
     public FakeUserRepository()
     {
-        Users = new List<User>()
-        {
-            new(){ Nickname = "TestUser1" },
-            new(){ Nickname = "TestUser2" },
-            new(){ Nickname = "TestUser3" }
-        };
-        
+        Users = new List<User>();
         _id = 0;
     }
 

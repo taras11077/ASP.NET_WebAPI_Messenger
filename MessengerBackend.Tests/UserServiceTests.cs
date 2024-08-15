@@ -20,10 +20,10 @@ public class UserServiceTests
     public UserServiceTests()
     {
         _repository = new FakeUserRepository();
-        _userService = CreateUserService();
+        _userService = new UserService(_repository);
     }
     
-    
+// ======= LOGIN ==================================   
 // тест логування користувача   
     [Fact]
     public async Task UserService_Login_CorrectInput()
@@ -69,6 +69,8 @@ public class UserServiceTests
         await Assert.ThrowsAsync<ArgumentNullException>(exceptionPasswordHandler);
     }
     
+    
+// ======= REGISTER ==================================     
 // тест валідації нікнейма при реєстрації    
     [Theory]
     [InlineData("")]
@@ -109,12 +111,16 @@ public class UserServiceTests
         await Assert.ThrowsAsync<ArgumentException>(exceptionHandler);
     }
     
-    // ======================
+    // ====== SEARCH ================
 
     [Fact]
     public void SearchUsers_ReturnsUsersWhenNicknameIsCorrect()
     {
         // Arrange
+        _repository.Users = new List<User>
+        {
+            new User { Nickname = "TestUser1" },
+        };
         var nickname = "TestUser1";
 
         // Act
@@ -129,19 +135,30 @@ public class UserServiceTests
     public void SearchUsers_ReturnsAllUsersWhenNicknameIsEmpty()
     {
         // Arrange
+        _repository.Users = new List<User>
+        {
+            new User { Nickname = "TestUser1" },
+            new User { Nickname = "TestUser2" },
+        };
         var nickname = string.Empty;
 
         // Act
-        var users = _userService.SearchUsers(nickname);
+        var usersDb = _userService.SearchUsers(nickname);
 
         // Assert
-        Assert.Equal(3, users.Count());
+        Assert.Equal(2, usersDb.Count());
     }
 
     [Fact]
     public void SearchUsers_ReturnsEmptyWhenNicknameNotExists()
     {
         // Arrange
+        _repository.Users = new List<User>
+        {
+            new User { Nickname = "TestUser1" },
+            new User { Nickname = "TestUser2" },
+            new User { Nickname = "TestUser3" }
+        };
         var nickname = "NonExistentUser";
 
         // Act
@@ -155,44 +172,135 @@ public class UserServiceTests
     public void SearchUsers_ReturnsUsersWhenNicknameIsPartOfOtherNickname()
     {
         // Arrange
-        var nickname = "User3";
+        _repository.Users = new List<User>
+        {
+            new User { Nickname = "TestUser1" },
+            new User { Nickname = "TestUser2" },
+        };
+        
+        var nickname = "User1";
 
         // Act
         var users = _userService.SearchUsers(nickname).ToList();
 
         // Assert
         Assert.Single(users);
-        Assert.Equal("TestUser3", users.First().Nickname);
+        Assert.Equal("TestUser1", users.First().Nickname);
     }
 
     [Fact]
     public void SearchUsers_IgnoresCaseWhenSearchingByNickname()
     {
         // Arrange
+        _repository.Users = new List<User>
+        {
+            new User { Nickname = "TestUser1" },
+            new User { Nickname = "TestUser2" },
+        };
+        
         var nickname = "user";
 
         // Act
         var users = _userService.SearchUsers(nickname);
 
         // Assert
-        Assert.Equal(3, users.Count());
+        Assert.Equal(2, users.Count());
     }
     
+// ====== GetUserById ================    
     
+    [Fact]
+    public async Task GetUserById_ReturnedUser_WhenUserExists()
+    {
+        // Arrange
+        var user = new User { Nickname = "TestUser" };
+        await _repository.Add(user);
+
+        // Act
+        var userDb = await _userService.GetUserById(1);
+
+        // Assert
+        Assert.NotNull(userDb);
+        Assert.Equal("TestUser", userDb.Nickname);
+    }
+
+    [Fact]
+    public async Task GetUserById_ReturnsNull_WhenUserDoesNotExist()
+    {
+        // Arrange
+        
+        // Act
+        var userDb = await _userService.GetUserById(100);
+
+        // Assert
+        Assert.Null(userDb);
+    }
     
-    // ========================
+// ====== UPDATE ================ 
+
+    [Fact]
+    public async Task UpdateUser_UpdatedUser_WhenUserExists()
+    {
+        // Arrange
+        var user = new User { Nickname = "OldName" };
+        await _repository.Add(user);
+        user.Nickname = "NewName";
+
+        // Act
+        var userDb = await _userService.UpdateUser(user);
+
+        // Assert
+        Assert.Equal("NewName", userDb.Nickname);
+    }
+
+    [Fact]
+    public async Task UpdateUser_ThrowsException_WhenUserDoesNotExist()
+    {
+        // Arrange
+        var user = new User { Nickname = "NonExistUser" };
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(() => _userService.UpdateUser(user));
+    }
+
+// =========   DELETE  =====================
+
+    [Fact]
+    public async Task DeleteUser_DeletedUser_WhenUserExists()
+    {
+        // Arrange
+        var user = new User { Nickname = "TestUser" };
+        await _repository.Add(user);
+
+        // Act
+        await _userService.DeleteUser(1);
+        var userDb = await _repository.GetById<User>(1);
+
+        // Assert
+        Assert.Null(userDb);
+    }
+
+    [Fact]
+    public async Task DeleteUser_ThrowsException_WhenUserDoesNotExist()
+    {
+        // Arrange
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(() => _userService.DeleteUser(1));
+    }
+// ========================
     
     private IUserService CreateUserService()
     {
-        // var options = new DbContextOptionsBuilder<MessengerContext>()
-        //     .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = MessengerDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; Trust Server Certificate=False; Application Intent = ReadWrite; Multi Subnet Failover=False")
-        //     .Options;
-        //
-        // var context = new MessengerContext(options);
-        // var repository = new Repository(context);
-        //
-        // return new UserService(repository);
-        return new UserService(new FakeUserRepository());   // for FakeRepository
+        var options = new DbContextOptionsBuilder<MessengerContext>()
+            .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = MessengerDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; Trust Server Certificate=False; Application Intent = ReadWrite; Multi Subnet Failover=False")
+            .Options;
+        
+        var context = new MessengerContext(options);
+        var repository = new Repository(context);
+        
+        return new UserService(repository);
+        //return new UserService(new FakeUserRepository());   // for FakeRepository
     }
 }
 
