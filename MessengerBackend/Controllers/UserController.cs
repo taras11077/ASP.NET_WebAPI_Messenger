@@ -4,14 +4,14 @@ using AutoMapper;
 using MessengerBackend.Core.Interfaces;
 using MessengerBackend.Core.Models;
 using MessengerBackend.DTOs;
-using MessengerBackend.Storage;
 using MessengerBackend.Requests;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessengerBackend.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/users")]
 public class UserController : Controller
 {
@@ -24,64 +24,64 @@ public class UserController : Controller
         _mapper = mapper;
     }
     
-    // реєстрація користувача
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(CreateUserRequest request)
-    {
-        // перевірка валідності моделі (CreateUserRequest)
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-        
-        try
-        {
-            var userDb = await _userService.Register(request.Nickname, request.Password);
-            
-            return Created("user", _mapper.Map<UserDTO>(userDb));
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Conflict(new { message = ex.Message });// 409 Conflict - якщо вже існує юзер з таким нікнеймом
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { message = "An unexpected error occurred." }); // 500 Internal Server Error - для всіх інших виключень
-        }
-    }
-
-    
-    // логування користувача
-    [HttpPost("login")]
-    public async Task<IActionResult> Login(CreateUserRequest request)
-    {
-        // перевірка валідності моделі (CreateUserRequest)
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-        
-        try
-        {
-            var userDb = await _userService.Login(request.Nickname, request.Password);
-            HttpContext.Session.SetString("user", userDb.Nickname);
-            HttpContext.Session.SetInt32("id", userDb.Id);
-            
-            return Ok(_mapper.Map<UserDTO>(userDb));
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(new { message = ex.Message });  // 400 Bad Request - якщо не переданий никнейм або пароль
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            return Unauthorized(new { message = ex.Message }); // 401 Unauthorized - якщо неправільні никнейм або пароль
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { message = "An unexpected error occurred." });  
-        }
-    }
+    //  // реєстрація користувача
+    // [HttpPost("register")]
+    // public async Task<IActionResult> Register(CreateUserRequest request)
+    // {
+    //     // перевірка валідності моделі (CreateUserRequest)
+    //     if (!ModelState.IsValid)
+    //         return BadRequest(ModelState);
+    //     
+    //     try
+    //     {
+    //         var userDb = await _userService.Register(request.Nickname, request.Password);
+    //         
+    //         return Created("user", _mapper.Map<UserDTO>(userDb));
+    //     }
+    //     catch (ArgumentException ex)
+    //     {
+    //         return BadRequest(new { message = ex.Message });
+    //     }
+    //     catch (InvalidOperationException ex)
+    //     {
+    //         return Conflict(new { message = ex.Message });// 409 Conflict - якщо вже існує юзер з таким нікнеймом
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         return StatusCode(500, new { message = "An unexpected error occurred." }); // 500 Internal Server Error - для всіх інших виключень
+    //     }
+    // }
+    //
+    //
+    // // логування користувача
+    // [HttpPost("login")]
+    // public async Task<IActionResult> Login(CreateUserRequest request)
+    // {
+    //     // перевірка валідності моделі (CreateUserRequest)
+    //     if (!ModelState.IsValid)
+    //         return BadRequest(ModelState);
+    //     
+    //     try
+    //     {
+    //         var userDb = await _userService.Login(request.Nickname, request.Password);
+    //         HttpContext.Session.SetString("user", userDb.Nickname);
+    //         HttpContext.Session.SetInt32("id", userDb.Id);
+    //         
+    //         return Ok(_mapper.Map<UserDTO>(userDb));
+    //     }
+    //     catch (ArgumentException ex)
+    //     {
+    //         return BadRequest(new { message = ex.Message });  // 400 Bad Request - якщо не переданий никнейм або пароль
+    //     }
+    //     catch (UnauthorizedAccessException ex)
+    //     {
+    //         return Unauthorized(new { message = ex.Message }); // 401 Unauthorized - якщо неправільні никнейм або пароль
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         return StatusCode(500, new { message = "An unexpected error occurred." });  
+    //     }
+    // }
     
 
     // отримання всіх користувачів

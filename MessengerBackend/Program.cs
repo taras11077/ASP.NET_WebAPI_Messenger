@@ -1,9 +1,12 @@
+using System.Text;
 using MessengerBackend.Core.Interfaces;
 using MessengerBackend.Core.Services;
 using MessengerBackend.Storage;
 using Microsoft.EntityFrameworkCore;
 using MessengerBackend.Filters;
 using MessengerBackend.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,11 +30,23 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-//builder.Services.AddControllers();
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add(new SessionCheckAttribute());
-});
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("TokenKey")!)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+        };
+    });
+
+builder.Services.AddControllers();
+// builder.Services.AddControllers(options =>
+// {
+//     options.Filters.Add(new SessionCheckAttribute());
+// });
 
 var app = builder.Build();
 
@@ -41,13 +56,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<StatisticMiddleware>();
+//app.UseMiddleware<StatisticMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseSession(); 
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 
