@@ -3,16 +3,16 @@ using MessengerBackend.Core.Models;
 
 namespace MessengerBackend.Core.Services;
 
-public class UserStatisticService : IUserStatisticService
+public class StatisticService : IStatisticService
 {
     private readonly IRepository _repository;
 
-    public UserStatisticService(IRepository repository)
+    public StatisticService(IRepository repository)
     {
         _repository = repository;
     }
     
-    public async Task AddStatistic(string nickname)
+    public async Task AddUserStatistic(string nickname)
     {
         var statistics = _repository.GetAll<UserRequestStatistic>().FirstOrDefault(x => x.UserName == nickname);
         if (statistics == null)
@@ -24,7 +24,7 @@ public class UserStatisticService : IUserStatisticService
         }
     }
 
-    public IEnumerable<UserRequestStatistic> GetStatistic()
+    public IEnumerable<UserRequestStatistic> GetUserStatistic()
     {
         return _repository.GetAll<UserRequestStatistic>().ToList();
     }

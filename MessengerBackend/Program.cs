@@ -17,7 +17,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IUserStatisticService, UserStatisticService>();
+builder.Services.AddTransient<IStatisticService, StatisticService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -41,7 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<UserStatisticMiddleware>();
+app.UseMiddleware<StatisticMiddleware>();
 
 //app.UseMiddleware<InfoMiddleware>();
 

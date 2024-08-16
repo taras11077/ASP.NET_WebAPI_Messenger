@@ -257,3 +257,4 @@ E:\0_step\repos\HW\23 ASP\MessengerBackend\MessengerBackend\obj\Debug\net8.0\ref
 E:\0_step\repos\HW\23 ASP\MessengerBackend\MessengerBackend\obj\Debug\net8.0\MessengerBackend.pdb
 E:\0_step\repos\HW\23 ASP\MessengerBackend\MessengerBackend\obj\Debug\net8.0\MessengerBackend.genruntimeconfig.cache
 E:\0_step\repos\HW\23 ASP\MessengerBackend\MessengerBackend\obj\Debug\net8.0\ref\MessengerBackend.dll
+E:\0_step\repos\HW\23 ASP\MessengerBackend\MessengerBackend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
