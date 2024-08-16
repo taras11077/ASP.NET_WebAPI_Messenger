@@ -111,9 +111,8 @@ public class UserController : Controller
     {
         var users = _userService.SearchUsers(nickname);
         if (!users.Any())
-        {
             return NotFound();
-        }
+        
         return Ok(_mapper.Map<IEnumerable<UserDTO>>(users));
     }
 // видалення користувача    

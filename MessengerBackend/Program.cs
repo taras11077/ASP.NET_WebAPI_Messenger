@@ -43,8 +43,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<StatisticMiddleware>();
 
-//app.UseMiddleware<InfoMiddleware>();
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -52,5 +50,9 @@ app.UseAuthorization();
 app.UseSession(); 
 
 app.MapControllers();
+
+app.UseInfo();
+
+app.UseScreening();
 
 app.Run();

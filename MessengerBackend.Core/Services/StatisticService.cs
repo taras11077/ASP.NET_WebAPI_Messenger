@@ -14,16 +14,16 @@ public class StatisticService : IStatisticService
     
     public async Task AddUserStatistic(string nickname)
     {
-        var statistics = _repository.GetAll<UserRequestStatistic>().FirstOrDefault(x => x.UserName == nickname);
-        if (statistics == null)
+        var userStatistic = _repository.GetAll<UserRequestStatistic>().FirstOrDefault(x => x.UserName == nickname);
+        if (userStatistic == null)
             await _repository.Add(new UserRequestStatistic() { UserName = nickname, RequestCount = 1 });
         else
         {
-            statistics.RequestCount++;
-            await _repository.Update(statistics);
+            userStatistic.RequestCount++;
+            await _repository.Update(userStatistic);
         }
     }
-
+    
     public IEnumerable<UserRequestStatistic> GetUserStatistic()
     {
         return _repository.GetAll<UserRequestStatistic>().ToList();

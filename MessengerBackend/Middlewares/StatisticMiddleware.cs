@@ -13,13 +13,17 @@ public class StatisticMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
+        // отримання сервісу з контексту
         var userStatisticService = context.RequestServices.GetRequiredService<IStatisticService>();
+        // отримання шляху з реквеста
         var path = context.Request.Path.Value;
         if (path != null && path.StartsWith("/api/users/search/"))
         {
+            // отримання нікнейму з шляху
             var name = path.Replace("/api/users/search/", "");
             
-            userStatisticService.AddUserStatistic(name); // оновлення статистикі
+            // оновлення статистики
+            userStatisticService.AddUserStatistic(name); 
         }
         
         await _next(context);

@@ -13,11 +13,13 @@ public class InfoMiddleware
 
     public async Task Invoke(HttpContext ctx)
     {
-        using var sr = new StreamReader(ctx.Request.Body);
-        string info = $"Path: {ctx.Request.Path}{Environment.NewLine}Body: {await sr.ReadToEndAsync()}";
-        
+        //using var sr = new StreamReader(ctx.Request.Body);
+        string info = $"Path: {ctx.Request.Path}{Environment.NewLine}Headers: {
+            string.Join(Environment.NewLine, ctx.Request.Headers.Select(x => x.Key + " = " + x.Value))
+        }";
         await _next.Invoke(ctx);
         _logger.LogInformation(info);
     }
 }
+
 
