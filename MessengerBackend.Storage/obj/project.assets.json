@@ -4132,11 +4132,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
+      "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
       "projectName": "MessengerBackend.Storage",
-      "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
+      "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
       "packagesPath": "C:\\Users\\Master\\.nuget\\packages\\",
-      "outputPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\obj\\",
+      "outputPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Master\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4154,8 +4154,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
-              "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj"
+            "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
+              "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj"
             }
           }
         }

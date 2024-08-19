@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r/sWiJabHj8dfBlmDitnoxCIcFwgXpHwlAozoJH/QJFyuyPpZGfxlBcwGm22ffmV3mBkurvC4Nw4XtWeGhjgYQ==",
+  "dgSpecHash": "bn7WD854+UqsxiqpOXAZSN+33bMUYZa14anMQQ6Ka4uE9McAe50fhDp7FLx+05GDk3q2crwm9lyy853Oz2WjYw==",
   "success": true,
-  "projectFilePath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
+  "projectFilePath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Master\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Master\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

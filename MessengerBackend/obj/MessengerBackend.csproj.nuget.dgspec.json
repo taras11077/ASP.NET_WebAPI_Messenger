@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj": {}
+    "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj": {}
   },
   "projects": {
-    "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
+    "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
+        "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
         "projectName": "MessengerBackend.Core",
-        "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
+        "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
         "packagesPath": "C:\\Users\\Master\\.nuget\\packages\\",
-        "outputPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\obj\\",
+        "outputPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Master\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,14 +82,14 @@
         }
       }
     },
-    "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj": {
+    "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
+        "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
         "projectName": "MessengerBackend.Storage",
-        "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
+        "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj",
         "packagesPath": "C:\\Users\\Master\\.nuget\\packages\\",
-        "outputPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\obj\\",
+        "outputPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Master\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -107,8 +107,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
-                "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj"
+              "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
+                "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj"
               }
             }
           }
@@ -164,14 +164,14 @@
         }
       }
     },
-    "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj": {
+    "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj",
+        "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj",
         "projectName": "MessengerBackend",
-        "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj",
+        "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend\\MessengerBackend.csproj",
         "packagesPath": "C:\\Users\\Master\\.nuget\\packages\\",
-        "outputPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend\\obj\\",
+        "outputPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Master\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -189,11 +189,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
-                "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj"
+              "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj": {
+                "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj"
               },
-              "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj": {
-                "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj"
+              "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj": {
+                "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Storage\\MessengerBackend.Storage.csproj"
               }
             }
           }
@@ -236,6 +236,10 @@
               "target": "Package",
               "version": "[8.0.7, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.3, )"
@@ -243,6 +247,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.0.1, )"
             }
           },
           "imports": [

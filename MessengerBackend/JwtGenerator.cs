@@ -4,7 +4,7 @@ using System.Text;
 using MessengerBackend.Core.Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace MessangerBackend;
+namespace MessengerBackend;
 
 public static class JwtGenerator
 {

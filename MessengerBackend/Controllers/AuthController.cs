@@ -1,5 +1,5 @@
 using AutoMapper;
-using MessangerBackend;
+using MessengerBackend;
 using MessengerBackend.Requests;
 using MessengerBackend.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;

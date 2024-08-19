@@ -25,7 +25,7 @@ builder.Services.AddTransient<IStatisticService, StatisticService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds((int)builder.Configuration.GetValue(typeof(int), "SessionTimeout"));
+    options.IdleTimeout = TimeSpan.FromSeconds(builder.Configuration.GetValue<int>("SessionTimeout"));
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

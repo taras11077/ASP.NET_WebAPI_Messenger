@@ -4112,11 +4112,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
+      "projectUniqueName": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
       "projectName": "MessengerBackend.Core",
-      "projectPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
+      "projectPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\MessengerBackend.Core.csproj",
       "packagesPath": "C:\\Users\\Master\\.nuget\\packages\\",
-      "outputPath": "E:\\0_step\\repos\\HW\\23 ASP\\MessengerBackend\\MessengerBackend.Core\\obj\\",
+      "outputPath": "E:\\0_step\\repos\\HW\\23 ASP.NET\\MessengerBackend\\MessengerBackend.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Master\\AppData\\Roaming\\NuGet\\NuGet.Config",
